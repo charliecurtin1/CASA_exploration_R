@@ -1,0 +1,42 @@
+---
+title: "CASA exploration"
+date: 1-16-24
+format: html
+editor: visual
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(here)
+```
+
+## exploratory data analysis
+
+Exploratory data analysis for EDS 411a flash talk presentations
+
+```{r, message = FALSE}
+# read in data on school districts in CA for 2022-2023
+ca_districts <- read_csv(here("data", "California_School_District_Areas_2022-23.csv"))
+```
+
+```{r}
+## data wrangling and cleaning
+# filter for school districts in Ventura County
+ventura_districts <- ca_districts %>% 
+  filter(CountyName == "Ventura")
+```
+
+```{r}
+## visualize percentage of socio-economically disadvantaged students in school districts in CA
+sed_pct_hist <- ca_districts %>% ggplot() +
+  geom_histogram(aes(x = SEDpct),
+                 color = "black",
+                 fill = "salmon",
+                 bins = 20) +
+  labs(x = "percent socio-economically disadvantaged",
+       y = "count") +
+  theme_bw() 
+  
+
+sed_pct_hist
+```
